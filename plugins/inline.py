@@ -1,4 +1,4 @@
-import logging, os
+import logging, os, re
 from urllib.parse import quote
 
 from pyrogram import Client, emoji, filters
@@ -40,6 +40,7 @@ async def answer(bot, query):
 
     for file in files:
         filename=os.path.splitext(file.file_name)[0]
+        filename=re.sub(r"@[A-Za-z]+[_|.]","",filename)
         results.append(
             InlineQueryResultCachedDocument(
                 title=file.file_name,
