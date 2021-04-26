@@ -1,4 +1,4 @@
-import logging
+import logging, os
 from urllib.parse import quote
 
 from pyrogram import Client, emoji, filters
@@ -39,11 +39,12 @@ async def answer(bot, query):
                                                   offset=offset)
 
     for file in files:
+        filename=os.path.splitext(file.file_name)[0]
         results.append(
             InlineQueryResultCachedDocument(
                 title=file.file_name,
                 file_id=file.file_id,
-                caption=file.caption or "",
+                caption=f"{filename}\nEnjoy....",
                 description=f'Size: {get_size(file.file_size)}\nType: {file.file_type}',
                 reply_markup=reply_markup))
 
